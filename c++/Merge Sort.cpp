@@ -54,7 +54,6 @@ void merge(int arr[], int l, int m, int r)
         k++; 
     } 
 } 
-  
 /* l is for left index and r is right index of the 
    sub-array of arr to be sorted */
 void mergeSort(int arr[], int l, int r) 
@@ -64,16 +63,15 @@ void mergeSort(int arr[], int l, int r)
         // Same as (l+r)/2, but avoids overflow for 
         // large l and h 
         int m = l+(r-l)/2; 
-  
         // Sort first and second halves 
         mergeSort(arr, l, m); 
         mergeSort(arr, m+1, r); 
-  
         merge(arr, l, m, r); 
     } 
 } 
 
 int main() {
+    //input
     int size;
     printf("Insert size of Array : ");
     scanf("%d",&size);
@@ -86,7 +84,9 @@ int main() {
         array[i] = rand();
         printf("Array @%d : %d\n",i,array[i]);
     }
+    //sort
     mergeSort(array, 0, arr_size - 1);
+    //print
     printf("Sorted Array : ");
     for (int i = 0; i < arr_size; i++)
     {
