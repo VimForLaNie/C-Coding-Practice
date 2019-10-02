@@ -6,6 +6,9 @@ int main(){
     int nvid = 0;
     scanf("%d %d",&nstage,&nvid);
     printf("n(stage) : %d\nn(video) : %d\n",nstage,nvid);
+    if(nstage > 100 || nvid > 100 || nstage > nvid){
+        return 0;
+    }
     int min[nstage];
     for (int i = 0; i < nstage; i++)
     {
