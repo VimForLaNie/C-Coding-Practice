@@ -135,4 +135,6 @@ int main()
         printf("Your case is stupid. . . ");
         break;
     }
+    getch();
+    return 0;
 }

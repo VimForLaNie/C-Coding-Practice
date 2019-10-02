@@ -92,6 +92,6 @@ int main() {
     {
         printf("%d ",array[i]);
     }
+    getch();
     return 0;
 }
-
