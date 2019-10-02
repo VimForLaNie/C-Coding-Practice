@@ -135,6 +135,6 @@ int main()
         printf("Your case is stupid. . . ");
         break;
     }
-    getch();
+    scanf(" %c");
     return 0;
 }

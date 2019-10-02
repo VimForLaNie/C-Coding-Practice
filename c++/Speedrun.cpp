@@ -83,6 +83,6 @@ int main(){
     {
         printf("%d %d\n",table[pos[i]][0],table[pos[i]][1]);
     }
-    getch();
+    scanf(" %c");
     return 0;
 }
