@@ -11,10 +11,12 @@ void merge(int arr[], int l, int m, int r)
     /* create temp arrays */
     int L[n1], R[n2]; 
     /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++) 
-        L[i] = arr[l + i]; 
-    for (j = 0; j < n2; j++) 
-        R[j] = arr[m + 1+ j]; 
+    for (i = 0; i < n1; i++){
+        L[i] = arr[l + i];
+    } 
+    for (j = 0; j < n2; j++){ 
+        R[j] = arr[m + 1+ j];
+    } 
     /* Merge the temp arrays back into arr[l..r]*/
     i = 0; // Initial index of first subarray 
     j = 0; // Initial index of second subarray 
@@ -61,7 +63,7 @@ void mergeSort(int arr[], int l, int r)
     if (l < r) 
     { 
         // Same as (l+r)/2, but avoids overflow for 
-        // large l and h 
+        // large l and r 
         int m = l+(r-l)/2; 
         // Sort first and second halves 
         mergeSort(arr, l, m); 

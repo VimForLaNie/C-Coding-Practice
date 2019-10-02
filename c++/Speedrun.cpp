@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cstdlib>
 
 int main(){
     int totalTime = 0;
@@ -12,7 +13,7 @@ int main(){
     int min[nstage];
     for (int i = 0; i < nstage; i++)
     {
-        min[i] = 100;
+        min[i] = 500;
     }
     int pos[nstage];
     for (int i = 0; i < nstage; i++)
@@ -20,13 +21,15 @@ int main(){
         pos[i] = 0;
     }
     int table[nvid][2];
+    int gaytor = 1;
     for (int i = 0; i < nvid; i++)
     {
-        scanf("%d %d",&table[i][0],&table[i][1]);
-        if(table[i][0] > nstage || table[i][0] > 500){
-            printf("Invalid Input\n");
-            return 0;
+        if(gaytor > nstage){
+            gaytor = 1;
         }
+        table[i][0] = gaytor;
+        table[i][1] = rand() % 501;
+        gaytor++;
     }
     printf("------------------------------------\n");
     printf("Table :");
@@ -59,7 +62,7 @@ int main(){
                         }
                         printf("\n");
                         pos[count - 1] = x;
-                        printf("*\t*pos = %d\n",x);
+                        printf("*_=_*pos = %d\n",x);
                     }
                 }
                 printf("------------------------------------\n");
