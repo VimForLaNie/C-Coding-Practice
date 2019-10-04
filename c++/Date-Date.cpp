@@ -34,9 +34,17 @@ int main(){
     printf("==========================================\n");
     printf("Enter The Starting Date (dd/mm/yyyy) : ");
     scanf("%hd/%hd/%hd",&Sd,&Sm,&Sy);
+    if(Sd > md[Sm - 1] || Sm > 12){
+        printf("Invalid Input . . . \n");
+        return 0;
+    }
     printf("==========================================\n");
     printf("Enter The Ending Date (dd/mm/yyyy) : ");
     scanf("%hd/%hd/%hd",&Ed,&Em,&Ey);
+    if(Ed > md[Em - 1] || Em > 12){
+        printf("Invalid Input . . . \n");
+        return 0;
+    }
     printf("==========================================\n");    
     clock_t start = clock();
     long Start = getdate(Sd,Sm,Sy);
