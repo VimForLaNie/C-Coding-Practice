@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <time.h>
-#include <conio.h>
 
 short int md[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 double time_spent;
