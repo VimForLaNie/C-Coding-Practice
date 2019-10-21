@@ -3,28 +3,6 @@ using namespace std;
 
 short nTower;
 
-void format(char input[],short output[]) {
-    short pointer = 0;
-    for (char i = 0; i < 8; i++)
-    {
-        if (input[i] >= 48 && input[i] <= 57 && (input[i + 1] == 0 || input[i + 1] == ' '))
-        {
-            output[pointer] = input[i] - '0';
-            pointer++;
-        }
-        else if (input[i] >= 48 && input[i] <= 57 && (input[i + 1] != 0 || input[i + 1] != ' '))
-        {
-            output[pointer] = ((input[i] - '0') * 10) + (input[i + 1] - '0');
-            pointer++;
-            i++;
-        }
-        else if (input[i] == 42)
-        {
-            break;
-        }
-    }
-}
-
 void draw(short start,short height, short end, short output[]){
     for(short i = start - 1; i < end - 1; i++){
         if(output[i] < height){
@@ -51,9 +29,7 @@ int main () {
 
     for (short i = 0; i < nTower; i++)
     {
-        char text[10] = { 0 };
-        scanf(" %[^\n]s",text);
-        format(text,Tower[i]);
+        scanf("%hd %hd %hd",&Tower[i][0],&Tower[i][1],&Tower[i][2]);
     }
 
     short temp[nTower];
