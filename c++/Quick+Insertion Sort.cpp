@@ -3,37 +3,47 @@
 #include <time.h>
 
 void quicksort(int arr[],short arr_size){
-    if(arr_size > 3){
-        short m = (rand() % (arr_size));
+    if(arr_size > 31){
+        short m = rand() % arr_size;
         int temp_arr_l[arr_size] = { 0 };
         int temp_arr_r[arr_size] = { 0 };
-        short Lpointer = 0,Rpointer = 1;
-        temp_arr_r[0] = arr[m];
+        short Lpointer = 0,Rpointer = 0;
         for (size_t i = 0; i < arr_size; i++)
         {
-            if(arr[i] <= arr[m] && i != m){
+            if(arr[i] <= arr[m]){
                 temp_arr_l[Lpointer] = arr[i];
                 Lpointer++;
             }
-            else if(arr[i] > arr[m] && i != m){
+            else if(arr[i] > arr[m]){
                 temp_arr_r[Rpointer] = arr[i];
                 Rpointer++;
             }
         }
-        quicksort(temp_arr_l,Lpointer);
-        quicksort(temp_arr_r,Rpointer);
+        int arr_l[Lpointer] = { 0 };
+        int arr_r[Rpointer] = { 0 };
         for (size_t i = 0; i < Lpointer; i++)
         {
-            arr[i] = temp_arr_l[i];
+            arr_l[i] = temp_arr_l[i]; 
+        }
+        for (size_t i = 0; i < Rpointer; i++)
+        {
+            arr_r[i] = temp_arr_r[i]; 
+        }
+        quicksort(arr_l,Lpointer);
+        quicksort(arr_r,Rpointer);
+        for (size_t i = 0; i < Lpointer; i++)
+        {
+            arr[i] = arr_l[i];
         }
         for (size_t i = Lpointer; i < arr_size; i++)
         {
-            arr[i] = temp_arr_r[i - Lpointer];
+            arr[i] = arr_r[i - Lpointer];
         }
     }
     else{
-        int pointer = 0;
-        for(int P = 1; P <= arr_size; P++){
+        short pointer = 0;
+        size_t P;
+        for(P = 1; P <= arr_size; P++){
             while(pointer <= P && pointer != 0){
                 if(arr[pointer] < arr[pointer - 1]){
                     int holder = arr[pointer];
@@ -42,8 +52,8 @@ void quicksort(int arr[],short arr_size){
                 }
                 pointer--;
             }
-            pointer = P;
-        }
+        pointer = P;
+        }   
     }
 }
 
