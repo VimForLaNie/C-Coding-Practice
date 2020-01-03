@@ -3,7 +3,7 @@
 #include <time.h>
 
 void quicksort(int arr[],short arr_size){
-    if(arr_size > 3){
+    if(arr_size > 2){
         short m = (rand() % (arr_size));
         int temp_arr_l[arr_size] = { 0 };
         int temp_arr_r[arr_size] = { 0 };
@@ -32,17 +32,10 @@ void quicksort(int arr[],short arr_size){
         }
     }
     else{
-        int pointer = 0;
-        for(int P = 1; P <= arr_size; P++){
-            while(pointer <= P && pointer != 0){
-                if(arr[pointer] < arr[pointer - 1]){
-                    int holder = arr[pointer];
-                    arr[pointer] = arr[pointer - 1];
-                    arr[pointer - 1] = holder;
-                }
-                pointer--;
-            }
-            pointer = P;
+        if(arr[0] > arr[1]){
+            int holder = arr[0];
+            arr[0] = arr[1];
+            arr[1] = holder;
         }
     }
 }
@@ -63,11 +56,11 @@ int main(){
     quicksort(array,array_size);
     clock_t end = clock();
     double timespent = (double)(end - start)/CLOCKS_PER_SEC;
-    printf("Sorted Array :");
-    for (size_t i = 0; i < array_size; i++)
-    {
-        printf(" %d",array[i]);
-    }
+    // printf("Sorted Array :");
+    // for (size_t i = 0; i < array_size; i++)
+    // {
+    //     printf(" %d",array[i]);
+    // }
     printf("\n");
     printf("time used in sorting : %f",timespent);
     return 0;
