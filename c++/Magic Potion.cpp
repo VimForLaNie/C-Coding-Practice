@@ -2,6 +2,8 @@
 #include <cstring>
 #include <math.h>
 
+int global_min;
+
 void format(char arr[],int out[], int arr_size, int out_size)
 {
     char count = 0;
@@ -28,8 +30,43 @@ void format(char arr[],int out[], int arr_size, int out_size)
     }
 }
 
+int Count(int arr[],int pivot,int k,char key){
+
+    int min = 99999999;
+    int adder;
+    int count = 0;
+    int d[pivot] = { 0 };
+    for (int i = 0; i < pivot; i++)
+    {
+        adder = arr[i];
+        for (int x = 0; x <= i; x++)
+        {
+            d[x] += adder;
+            if(d[x] == k){
+                count++;
+                if(min > x){
+                    min = x;
+                }
+            }
+        }
+    }
+    switch (key)
+    {
+    case 'c':
+        return count;
+        break;
+    case 'm':
+        return min;
+    default:
+        break;
+    }
+    return count;
+}
+
 int main() 
 {
+    char c = 'c';
+    char m = 'm';
     int n;
     long k;
     scanf(" %i %li",&n,&k);
@@ -38,32 +75,7 @@ int main()
     int array[n] = { 0 };
 
     format(rawInput, array,100000,n);
-    
-    int adder;
-    int output[n] = { 0 };
-    int count = 0;
-    int d[n] = { 0 };
-    int min = 999999999;
 
-    for (size_t i = 0; i < n; i++)
-    {
-        adder = array[i];
-        for (size_t x = 0; x <= i; x++)
-        {
-            d[x] += adder;
-            if(d[x] == k){
-                output[count] = (n - 1) - x;
-                count++;
-            }
-            if(output[x] < min && i == n - 1 && x < count){
-                min = output[x];
-            }
-        }
-    }
-    if(d[0] == k){
-        min = 0;
-    }
-    printf("%i %i",count,min);
-    main();
+    printf("%i %i",Count(array,n,k,c),Count(array,n,k,m));
     return 0;
 }
