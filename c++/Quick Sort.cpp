@@ -1,44 +1,41 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
 #include <time.h>
 
-void quicksort(int arr[],short arr_size){
-    if(arr_size > 2){
-        short m = (rand() % (arr_size));
-        int temp_arr_l[arr_size] = { 0 };
-        int temp_arr_r[arr_size] = { 0 };
-        short Lpointer = 0,Rpointer = 1;
-        temp_arr_r[0] = arr[m];
-        for (size_t i = 0; i < arr_size; i++)
-        {
-            if(arr[i] <= arr[m] && i != m){
-                temp_arr_l[Lpointer] = arr[i];
-                Lpointer++;
-            }
-            else if(arr[i] > arr[m] && i != m){
-                temp_arr_r[Rpointer] = arr[i];
-                Rpointer++;
-            }
-        }
-        quicksort(temp_arr_l,Lpointer);
-        quicksort(temp_arr_r,Rpointer);
-        for (size_t i = 0; i < Lpointer; i++)
-        {
-            arr[i] = temp_arr_l[i];
-        }
-        for (size_t i = Lpointer; i < arr_size; i++)
-        {
-            arr[i] = temp_arr_r[i - Lpointer];
-        }
-    }
-    else{
-        if(arr[0] > arr[1]){
-            int holder = arr[0];
-            arr[0] = arr[1];
-            arr[1] = holder;
-        }
-    }
+void swap(int a,int b, int arr[]){
+    int h = arr[a];
+    arr[a] = arr[b];
+    arr[b] = h;
 }
+int partition(int arr[], int start, int end) 
+{ 
+    int pivot = arr[end];
+    int i = (start - 1); 
+    for (int j = start; j <= end - 1; j++) { 
+        if (arr[j] <= pivot) { 
+            i++;
+            swap(i,j,arr); 
+        } 
+    } 
+    swap(i + 1,end,arr); 
+    return (i + 1); 
+} 
+int partition_r(int arr[], int start, int end) 
+{ 
+    srand(time(NULL)); 
+    int random = start + rand() % (end - start); 
+    swap(random,end,arr); 
+    return partition(arr, start, end); 
+} 
+
+void quickSort(int arr[], int start, int end) 
+{ 
+    if (start < end) { 
+        int pi = partition_r(arr, start, end); 
+        quickSort(arr, start, pi - 1); 
+        quickSort(arr, pi + 1, end); 
+    } 
+} 
 
 int main(){
     short array_size;
@@ -53,14 +50,14 @@ int main(){
     }
     printf("\n\n");
     clock_t start = clock();
-    quicksort(array,array_size);
+    quickSort(array,0,array_size - 1);
     clock_t end = clock();
     double timespent = (double)(end - start)/CLOCKS_PER_SEC;
-    // printf("Sorted Array :");
-    // for (size_t i = 0; i < array_size; i++)
-    // {
-    //     printf(" %d",array[i]);
-    // }
+    printf("Sorted Array :");
+    for (size_t i = 0; i < array_size; i++)
+    {
+        printf(" %d",array[i]);
+    }
     printf("\n");
     printf("time used in sorting : %f",timespent);
     return 0;
