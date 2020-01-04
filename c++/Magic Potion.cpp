@@ -1,40 +1,14 @@
 #include <stdio.h>
+#include <cstring>
 #include <math.h>
 
-void Potion(int arr[],int l, int r, int arr_size)
-{
-    int Lpointer = 0;
-    int Rpointer = arr_size - 1;
-    while (l > 0)
-    {
-        arr[Lpointer] = 0;
-        l--;
-        Lpointer++;
-    }
-    while (r > 0)
-    {
-        arr[Rpointer] = 0;
-        r--;
-        Rpointer--;
-    }
-}
-
-int Sum(int arr[])
-{
-    int result = 0;
-    for (size_t i = 0; i < sizeof(arr)/sizeof(arr[0]); i++)
-    {
-        result += arr[i];
-    }
-    return result;
-}
-
-void format(char arr[],int out[],int arr_size,int out_size)
+void format(char arr[],long int out[],long int arr_size,long int out_size)
 {
     char count = 0;
-    int pointer = out_size - 1;
-    int num = 0;
-    for (int i = arr_size - 1; i >= 0; i--)
+    long int pointer = 0;
+    long int num = 0;
+
+    for (long int i = arr_size - 1; i >= 0; i--)
     {
         if(arr[i] >= '0' && arr[i] <= '9')
         {
@@ -43,7 +17,7 @@ void format(char arr[],int out[],int arr_size,int out_size)
             {
                 out[pointer] = num;
                 num = 0;
-                pointer--;
+                pointer++;
                 count = 0;
             }
             else if(arr[i - 1] >= '0' && arr[i - 1] <= '9')
@@ -54,60 +28,79 @@ void format(char arr[],int out[],int arr_size,int out_size)
     }
 }
 
-void nPotion(int arr[], int out[], int count, int arr_size,int k)
-{
-    int max_nPotion = arr_size - 1;
-    int curr_nPotion = max_nPotion / 2;
-    int left_nPotion = 0;
-    int potion_arr[arr_size];
-    int k_arr[curr_nPotion];
-    int k_pointer = 0;
-    repeat:
-    if(left_nPotion > curr_nPotion)
+long int FindCount(long int start,long int arr[],long long k,const short key){
+    long int adder;
+    long int output[start] = { 0 };
+    long int count = 0;
+    int d[start] = { 0 };
+    int min = 999999999;
+
+    for (size_t i = 0; i < start; i++)
     {
-        if(Sum(k_arr) / max_nPotion > k){
-            curr_nPotion = (curr_nPotion + max_nPotion) / 2;
+        adder = arr[i];
+        for (size_t x = 0; x <= i; x++)
+        {
+            d[x] += adder;
+            if(d[x] == k){
+                output[count] = start - x - 1;
+                count++;
+            }
+            if(output[count - 1] < min && x == i){
+                min = output[count - 1];
+            }
         }
-        else{
-            curr_nPotion *= 0.5;
-        }
-        int k_arr[curr_nPotion] = { 0 };
     }
-    for (size_t i = 0; i < arr_size; i++)
+    if(output[count] < min && d[start - count] == k){
+        min = output[count];
+    }
+    if(key == 1){
+        return count;
+    }
+    else if (key == 0)
     {
-        potion_arr[i] = arr[i];
+        return min;
     }
-    Potion(potion_arr,left_nPotion,curr_nPotion - left_nPotion,arr_size);
-    k_arr[k_pointer] = Sum(potion_arr);
-    k_pointer++;
-    if(k_arr[k_pointer - 1] == k)
-    {
-        left_nPotion++;
-        out[count] = curr_nPotion;
-        count++;
-    }
-    else
-    {
-        left_nPotion++;
-    }
-    goto repeat;
 }
 
 int main() 
 {
-    int n,k;
-    scanf(" %d %d",&n,&k);
-    char rawInput[2*n - 1] = { 0 };
+    long int n;
+    long long k;
+    scanf(" %lli %lli",&n,&k);
+    char rawInput[1000000] = { 0 };
     scanf(" %[^\n]s",rawInput);
-    int array[n] = { 0 };
-    format(rawInput, array,2*n - 1,n);
-    int output[n] = { 0 };
-    int count = 0;
-    nPotion(array,output,count,n,k);
-    for (size_t i = 0; i < sizeof(output)/sizeof(output[0]); i++)
+    long int array[n] = { 0 };
+
+    format(rawInput, array,100000,n);
+    
+    long int x = n / 2;
+    while (FindCount(x,array,k,1) > 0)
     {
-        printf("%d ",output[i]);
+        x = (x + n)/ 2;
+        if(x == n - 1){
+            x++;
+            goto end;
+        }     
     }
-    printf("break");
+    while (FindCount(x,array,k,1) == 0)
+    {
+        x = x - (x / 2);
+        if(x == 1){
+            x = (n + (n /2)) / 2;
+            break;
+        }
+    }
+    while (FindCount(x,array,k,1) >= 0)
+    {
+        x = (x + n)/ 2;
+        if(x == n - 1){
+            x++;
+            goto end;
+        }   
+    }
+    end:
+    long int c = FindCount(x,array,k,1);
+    long int m = FindCount(x,array,k,0);
+    printf("%i %i",c,m);
     return 0;
 }
