@@ -34,7 +34,7 @@ int main()
         fgets(text2[i], 30 + 2, stdin);
     }
     size_t pointer = 0;
-    for (size_t i = 1; i < size1; i += 3)
+    for (size_t i = 1; i < size1; i += 4)
     {
         if (text1[0][i] == '_')
         { //&& text1[0][i - 1] == ' ' && text1[0][i + 1] == ' '
@@ -103,7 +103,7 @@ int main()
         }
     }
     pointer = 0;
-    for (size_t i = 1; i < size2; i += 3)
+    for (size_t i = 1; i < size2; i += 4)
     {
         if (text2[0][i] == '_')
         {
