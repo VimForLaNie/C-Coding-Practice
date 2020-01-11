@@ -50,15 +50,6 @@ int main(){
     {
         scanf("%s",stage[i]);
     }
-    printf("Table :");
-    for (char i = 0; i < row; i++)
-    {
-        for (char j = 0; j < col; j++)
-        {
-            printf("\t%c",stage[i][j]);
-        }
-        printf("\n");
-    }
     scanf(" %[^\n]s", inputObj);
     format(inputObj, Object);
     for (char i = 0; i < col; i++)
@@ -77,12 +68,11 @@ int main(){
             stage[z][i] = tempCol[z];
         }
     }
-    printf("Table :");
     for (char i = 0; i < row; i++)
     {
         for (char j = 0; j < col; j++)
         {
-            printf("\t%c",stage[i][j]);
+            printf("%c",stage[i][j]);
         }
         printf("\n");
     }
