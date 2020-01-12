@@ -3,6 +3,11 @@
         "algorithm": "cpp",
         "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
         "utility": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "xhash": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     }
 }
