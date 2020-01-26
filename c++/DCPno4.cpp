@@ -12,7 +12,7 @@ int main(){
     sort(arr,arr + size);
     for (size_t i = size - 1; i > 0 ; i--)
     {
-        if((arr[i] - arr[0]) - (arr[i - 1] - arr[0]) <= 1){
+        if((arr[i] - arr[i - 1]) <= 1){
             continue;
         }
         else{
