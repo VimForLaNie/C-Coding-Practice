@@ -10,28 +10,56 @@ int main(){
     {
         int start,end,dist;
         scanf("%d %d %d",&start,&end,&dist);
-        g[start].push_back({end,dist});
-        g[end].push_back({start,dist});
+        g[start - 1].push_back({dist,end - 1});
+        g[end - 1].push_back({dist,start - 1});
     }
     pq.push({0,0});
     int min_dis[num_node];
     for(int i = 0; i < num_node; i++){
         min_dis[i] = 1e7; 
     }
-    min_dis[0] = -1;
+    min_dis[0] = 0;
+    bool visited[num_node];
     while(!pq.empty()){
         int curr_node = pq.top().second;
-        int curr_dist = pq.top().first;
+        int curr_dist = -pq.top().first;
         pq.pop();
+        if(visited[curr_node]){
+            continue;
+        }
+        if(curr_node == num_node){
+            continue;
+        }
         for (int i = 0; i < g[curr_node].size(); i++)
         {
             int next_node = g[curr_node][i].second;
             int new_dist = g[curr_node][i].first;
             if(new_dist + curr_dist < min_dis[next_node]){
-                pq.push({new_dist + curr_dist,next_node});
+                pq.push({-(new_dist + curr_dist),next_node});
                 min_dis[next_node] = new_dist + curr_dist;
             }
         }
+        visited[curr_node] = true;
     }
-    
+    stack <int> bt;
+    int i = num_node - 1;
+    bt.push({i});
+    while(i != 0){
+        
+        int min = 1e10;
+        int node;
+        for (int x = 0; x < g[i].size(); x++)
+        {
+            if(g[i][x].first < min){
+                min = g[i][x].first;
+                node = g[i][x].second;
+                i = node;
+            }
+        }
+        bt.push({i});
+    }
+    while(!bt.empty()){
+        printf("%d ",bt.top() + 1);
+        bt.pop();
+    }
 }
