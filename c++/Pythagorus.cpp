@@ -2,9 +2,7 @@
 using namespace std;
 
 int main(){
-    long double a,b;
-    scanf(" %Lf %Lf",&a,&b);
-    long double result =  sqrt((a*a) + (b*b));
-    printf("%.6Lf",result);
-    return 0;
+    double a,b;
+    scanf(" %f %f",&a,&b);
+    printf("%.6f",sqrt((a*a) + (b*b)));
 }
