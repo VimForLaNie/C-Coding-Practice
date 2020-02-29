@@ -2,6 +2,7 @@
 using namespace std;
 
 int main(){
+    stack <int> bt_path;
     priority_queue < pair< int,int > > pq;
     int num_node,num_conn;
     scanf(" %d %d",&num_node,&num_conn);
@@ -14,52 +15,42 @@ int main(){
         g[end - 1].push_back({dist,start - 1});
     }
     pq.push({0,0});
-    int min_dis[num_node];
+    vector < long long > min_dis;
+    int bt[num_node + 1] = { -1 };
     for(int i = 0; i < num_node; i++){
-        min_dis[i] = 1e7; 
+        min_dis.push_back(1e11); 
     }
     min_dis[0] = 0;
-    bool visited[num_node];
     while(!pq.empty()){
         int curr_node = pq.top().second;
         int curr_dist = -pq.top().first;
         pq.pop();
-        if(visited[curr_node]){
-            continue;
-        }
-        if(curr_node == num_node){
-            continue;
-        }
         for (int i = 0; i < g[curr_node].size(); i++)
         {
             int next_node = g[curr_node][i].second;
             int new_dist = g[curr_node][i].first;
             if(new_dist + curr_dist < min_dis[next_node]){
                 pq.push({-(new_dist + curr_dist),next_node});
+                bt[next_node + 1] = curr_node + 1;
                 min_dis[next_node] = new_dist + curr_dist;
             }
         }
-        visited[curr_node] = true;
-    }
-    stack <int> bt;
-    int i = num_node - 1;
-    bt.push({i});
-    while(i != 0){
-        
-        int min = 1e10;
-        int node;
-        for (int x = 0; x < g[i].size(); x++)
-        {
-            if(g[i][x].first < min){
-                min = g[i][x].first;
-                node = g[i][x].second;
-                i = node;
-            }
+        if(curr_node == num_node){
+            continue;
         }
-        bt.push({i});
     }
-    while(!bt.empty()){
-        printf("%d ",bt.top() + 1);
-        bt.pop();
+    if(min_dis[num_node - 1] != 1e11){
+        int i = num_node;
+        while(bt[i] != -1){
+            bt_path.push(i);
+            i = bt[i];
+        }
+        while(!bt_path.empty()){
+            printf("%d ",bt_path.top());
+            bt_path.pop();
+        }
+    }
+    else{
+        printf("-1");
     }
 }
