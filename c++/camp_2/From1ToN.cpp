@@ -7,10 +7,10 @@ int main(){
     vector < pair<int,int> > g[100];
     int num_vertices,num_edges;
     cin >> num_vertices >> num_edges;
-    int min_dist[num_vertices];
+    long long min_dist[num_vertices];
     int bt[num_vertices + 1] = { -1,0 };
     for(int i = 0; i < num_vertices;i++){
-        min_dist[i] = 1e9;
+        min_dist[i] = 1e11;
     }
     for (int i = 0; i < num_edges; i++)
     {
@@ -51,7 +51,7 @@ int main(){
     }
     int i = num_vertices;
     path.push(num_vertices);
-    if(min_dist[i - 1] != 1e9){
+    if(min_dist[i - 1] != 1e11){
         while(bt[i] != 0){
             i = bt[i];
             path.push(i);
