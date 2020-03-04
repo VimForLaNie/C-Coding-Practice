@@ -27,12 +27,17 @@ int main(){
 
     for (int i = 0; i < n; i++)
     {
+        int arr_size = arr.size();
         if(input[i].first == 1){
             arr.push_back(input[i].second.first);
             rep[arr.back()]++;
         }
         else if (input[i].first == 2)
         {
+            if(arr_size == 0){
+                i_ques;
+                continue;
+            }
             int wantnum = input[i].second.first;
             int wantrep = input[i].second.second;
             ans_wantnum_rep[i_ques] = rep[wantnum];
@@ -57,25 +62,21 @@ int main(){
             int mostrep_size = ans_most_rep[i_ques].size();
             printf("%d\n",ans_wantnum_rep[i_ques]);
             printf("%d ",wantrep_size);
-            if(wantrep_size >= 5){
-                goto skip1;
-            }
-            for (int i = 0; i < wantrep_size ; i++)
-            {
-                printf("%d ",ans_wantrep_num[i_ques][i]);
+            if(wantrep_size <= 5){
+                for (int i = 0; i < wantrep_size ; i++)
+                {
+                    printf("%d ",ans_wantrep_num[i_ques][i]);
+                }
             }
             printf("\n");
-            skip1:
             printf("%d ",mostrep_size);
-            if(mostrep_size >= 5){
-                goto skip2;
-            }
-            for (int i = 0; i < mostrep_size; i++)
-            {
-                printf("%d ",ans_most_rep[i_ques][i]);
+            if(mostrep_size <= 5){
+                for (int i = 0; i < mostrep_size; i++)
+                {
+                    printf("%d ",ans_most_rep[i_ques][i]);
+                }
             }
             printf("\n");
-            skip2:
             i_ques++;
         }
     }
