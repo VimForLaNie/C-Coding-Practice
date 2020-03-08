@@ -1,56 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int i,start_vertex,end_vertex,dist,num_vertex,num_edge;
+
 int main(){
-    stack <int> bt_path;
-    priority_queue < pair< int,int > > pq;
-    int num_node,num_conn;
-    scanf(" %d %d",&num_node,&num_conn);
-    vector < pair < int,int> > g[num_node];
-    for (int i = 0; i < num_conn; i++)
+    priority_queue < pair<int,int> >pq;
+    stack <int>path;
+    cin >> num_vertex >> num_edge;
+    vector< pair<int,int> > g[num_vertex + 1];
+    long long min_dist[num_vertex + 1];
+    bool visited[num_vertex + 1] = { 0 };
+    int bt[num_vertex + 1] = { -1 };
+    for (i = 0; i <= num_vertex; i++)
     {
-        int start,end,dist;
-        scanf("%d %d %d",&start,&end,&dist);
-        g[start - 1].push_back({dist,end - 1});
-        g[end - 1].push_back({dist,start - 1});
+        min_dist[i] = 1e10;
     }
-    pq.push({0,0});
-    vector < long long > min_dis;
-    int bt[num_node + 1] = { -1 };
-    for(int i = 0; i < num_node; i++){
-        min_dis.push_back(1e11); 
+    for (i = 0; i < num_edge; i++)
+    {
+        cin >> start_vertex >> end_vertex >> dist;
+        g[start_vertex].push_back({dist,end_vertex});
+        g[end_vertex].push_back({dist,start_vertex});
     }
-    min_dis[0] = 0;
+    pq.push({0,1});
+    int curr_dist,curr_vertex,next_vertex,next_dist;
     while(!pq.empty()){
-        int curr_node = pq.top().second;
-        int curr_dist = -pq.top().first;
+        curr_vertex = pq.top().second;
+        curr_dist = -pq.top().first;
         pq.pop();
-        for (int i = 0; i < g[curr_node].size(); i++)
-        {
-            int next_node = g[curr_node][i].second;
-            int new_dist = g[curr_node][i].first;
-            if(new_dist + curr_dist < min_dis[next_node]){
-                pq.push({-(new_dist + curr_dist),next_node});
-                bt[next_node + 1] = curr_node + 1;
-                min_dis[next_node] = new_dist + curr_dist;
+        visited[curr_vertex] = true;
+        int arr_size = g[curr_vertex].size();
+        for(i = 0; i < arr_size; i++){
+            next_vertex = g[curr_vertex][i].second;
+            next_dist = g[curr_vertex][i].first;
+            if(curr_dist + next_dist <= min_dist[next_vertex] && !visited[next_vertex]){
+                min_dist[next_vertex] = curr_dist + next_dist;
+                pq.push({-(curr_dist + next_dist),next_vertex});
+                bt[next_vertex] = curr_vertex;
             }
         }
-        if(curr_node == num_node){
-            continue;
-        }
     }
-    if(min_dis[num_node - 1] != 1e11){
-        int i = num_node;
-        while(bt[i] != -1){
-            bt_path.push(i);
-            i = bt[i];
-        }
-        while(!bt_path.empty()){
-            printf("%d ",bt_path.top());
-            bt_path.pop();
-        }
+    if(min_dist[num_vertex] == 1e10){
+        cout << "-1";
+        return 0;
     }
-    else{
-        printf("-1");
+    i = num_vertex;
+    while(bt[i] != -1){
+        path.push(i);
+        i = bt[i];
+    }
+    while(!path.empty()){
+        cout << path.top() << " ";
+        path.pop();
     }
 }
