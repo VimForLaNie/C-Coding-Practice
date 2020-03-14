@@ -9,7 +9,7 @@ int main(){
     sscanf(n_arr,"%d ",&n);
     vector <int> arr;
     char rawInput[n][20];
-    pair <int, pair <int,int>> input[n];
+    pair <int, pair <int,int> > input[n];
     for(int i = 0; i < n; i++){
         fgets(rawInput[i], 20, stdin);
         sscanf(rawInput[i],"%d %d %d",&input[i].first,&input[i].second.first,&input[i].second.second);
@@ -35,7 +35,6 @@ int main(){
         else if (input[i].first == 2)
         {
             if(arr_size == 0){
-                i_ques;
                 continue;
             }
             int wantnum = input[i].second.first;
@@ -50,7 +49,7 @@ int main(){
                 if(x.second == wantrep){
                     ans_wantrep_num[i_ques].push_back(x.first);
                 }
-                
+
             }
             for (auto const& x : rep)
             {
