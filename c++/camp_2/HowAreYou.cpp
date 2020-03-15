@@ -35,6 +35,7 @@ int main(){
         else if (input[i].first == 2)
         {
             if(arr_size == 0){
+                i_ques++;
                 continue;
             }
             int wantnum = input[i].second.first;
