@@ -14,6 +14,9 @@
         "iosfwd": "cpp",
         "functional": "cpp",
         "valarray": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "thread": "cpp",
+        "string_view": "cpp",
+        "regex": "cpp"
     }
 }
