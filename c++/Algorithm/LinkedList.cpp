@@ -27,6 +27,21 @@ void print_list(Node* root){
     cout << endl;
 }
 
+void list_pushfront(Node* root,int data){
+    Node* ptr;
+    ptr = new Node;
+    ptr->data = root->data;
+    ptr->next = root->next;
+    root->data = data;
+    root->next = ptr;
+}
+void list_rf(Node* root){
+    Node* ptr;
+    ptr = root->next;
+    root = ptr;
+    cout << endl;
+}
+
 void list_removeback(Node* root){
     Node* ptr;
     ptr = root;
@@ -121,4 +136,9 @@ int main(){
     list_insert(3,Start,1000001);
     print_list(Start);
     print_list(Happy);
+    list_pushfront(Start,1);
+    list_pushfront(Start,0);
+    list_pushfront(Start,0);
+    list_rf(Start);
+    print_list(Start);
 }
