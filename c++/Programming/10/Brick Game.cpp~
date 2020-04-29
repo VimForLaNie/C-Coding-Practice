@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char[] brick_fall(char col[],int s,int num_brick){
+	int i;
+	int j;
+	int ptr;
+	cout << "brick_fall -> ::" << endl;
+	for(i = 0; i < s; i++){
+		cout << "*******looping @ " << i << endl;
+		ptr = i;
+		if(i - 1 == s && col[i] == '.'){
+			cout << "====end of col" << endl;
+			for(j = 0;j < num_brick; j++){
+				col[ptr - j] = 'a';	
+				cout << "++placing . . ." << endl;
+			}
+		}
+		if(col[i] == '#' || col[i] == '0'){
+			cout << "====found stone" << endl;
+			ptr = i - 1;
+			for(j = 0;j < num_brick; j++){
+				cout << "++placing . . ." << endl;
+				col[ptr - j] = 'a';
+			}
+		}
+	}
+	return col;
+}
+
+int main(){
+	int n,m;
+	string in;
+	int num;
+	cin >> n >> m;
+	string map[n];
+	int brick[m];
+	char col[n];
+	int i,j;
+	for(i = 0; i < n; i++){
+		cin >> in;
+		map[i] = in;
+	}
+	for(i = 0; i < m; i++){
+		cin >> brick[i];
+	}
+	for(i = 0; i < m; i++){
+		for(j = 0; j < n; j++){
+			col[i] = map[j][i];
+			cout << col[i];
+		}
+		cout << endl;
+		col = brick_fall(col,n,brick[i]);
+		for(j = 0; j < n; j++){
+			cout << col[i];
+			map[j][i] = col[i];
+		}
+		cout << endl;
+	}
+	int s;
+	for(i = 0; i < n; i++){
+		s = map[i].size();
+		for(j = 0; j < s; j++){
+			cout << map[i][j] << " ";
+		}
+		cout << endl;
+	}	
+	return 0;
+}

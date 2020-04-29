@@ -35,12 +35,12 @@ struct Node
 
 void print_node(Node *target)
 {
-    cout << target->data->id << " "
-         << target->data->name << " ["
-         << target->data->sex << "] ("
+    cout << target->data->id << "\t"
+         << target->data->name << "\t["
+         << target->data->sex << "]\t("
          << target->data->birth->day << "/"
          << target->data->birth->month << "/"
-         << target->data->birth->year << ") "
+         << target->data->birth->year << ")\t"
          << target->data->grade << endl;
 }
 
@@ -48,7 +48,7 @@ void print_list(Node *root)
 {
     Node *ptr;
     ptr = root;
-    if (ptr->data == NULL)
+    if (ptr->data == NULL)//if no items in the list
     {
         cout << "NONE" << endl;
         return;
@@ -90,6 +90,12 @@ void list_rb(Node *root)
 {
     Node *ptr;
     ptr = root;
+    if(ptr->next == NULL){
+        ptr->data == NULL;
+    }
+    if(ptr-> data == NULL){
+        return;
+    }
     while (ptr->next->next != NULL)
     {
         ptr = ptr->next;
@@ -150,7 +156,7 @@ student* read(string in,int size){
     birth->year = year;
     stu->birth = birth;
     float temp_grade = stof(grade);
-    stu->grade = round_two(temp_grade);
+    stu->grade = round_two(temp_grade); //round to 2 decimal point because stof is stupid
     return stu;
 }
 
@@ -177,7 +183,7 @@ int main()
         cin >> in;
         size = in.size();
         int j;
-        if (i == 0)
+        if (i == 0)//have to initialize the list first before link_pb
         {
             rec->data = read(in,size);
         }
@@ -196,14 +202,14 @@ int main()
         stu = new student;
         date *birth;
         birth = new date;
-        if (key == "AF")
+        if (key == "AF")//Add Front
         {
             cin >> in;
             size = in.size();
             list_pf(rec, read(in,size));
             list_size++;
         }
-        else if (key == "AB")
+        else if (key == "AB")//Add Back
         {
             cin >> in;
             size = in.size();
@@ -211,23 +217,31 @@ int main()
             list_size++;
             
         }
-        else if (key == "DB")
+        else if (key == "DB")//Del Back
         {
             list_rb(rec);
+            print_list(rec);
         }
-        else if (key == "DF")
+        else if (key == "DF")//Del Back
         {
-            rec = rec->next;
+            if(rec->next == NULL){
+                rec->data = NULL;
+                print_list(rec);
+            }
+            if(rec->data != NULL){
+                rec = rec->next;
+                print_list(rec);
+            }
         }
-        else if (key == "ST")
+        else if (key == "ST")//Show list size
         {
             cout << list_size + 1 << endl;
         }
-        else if (key == "SA")
+        else if (key == "SA")//show all
         {
             print_list(rec);
         }
-        else if (key == "SC")
+        else if (key == "SC")//show id
         {
             //id-search
             cin >> in;
@@ -245,7 +259,7 @@ int main()
                 cout << "NONE" << endl;
             }
         }
-        else if (key == "SN")
+        else if (key == "SN")//show name
         {
             //name in = {sub-name}*
             cin >> in;
@@ -293,7 +307,7 @@ int main()
             }
             print_list(search_list);
         }
-        else if (key == "SG")
+        else if (key == "SG")//show in grade range
         {
             //grade floor ceil
             cin >> grade_floor >> grade_ceil;
@@ -330,7 +344,7 @@ int main()
             }
             print_list(search_list);
         }
-        else if (key == "SS")
+        else if (key == "SS")//show sex
         {
             //sex M or F
             cin >> in;
@@ -365,7 +379,7 @@ int main()
             }
             print_list(search_list);
         }
-        else if (key == "SD")
+        else if (key == "SD")//show birthday in {in} month
         {
             //birth in this.month
             cin >> in;
@@ -400,4 +414,6 @@ int main()
             print_list(search_list);
         }
     }
+    cout << " " << endl;
+    return 0;
 }

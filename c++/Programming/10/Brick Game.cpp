@@ -1,79 +1,67 @@
-#include <stdio.h>
-#include <math.h>
-
-short row,col;
-
-void format(char input[], char output[]){
-    short pointer = col - 1;
-    short num = 0;
-    short count = 0;
-    for(char i = 58; i > -1; i--)
-    {
-        short charvalue = input[i] - '0';
-        short power = pow(10, count);
-        if(input[i] != ' ' && input[i] != 0){
-            num += charvalue * power;
-            count++;
-        }
-        else if(num > 0)
-        {
-            count = 0;
-            output[pointer] = num;
-            num = 0;
-            pointer--;
-        }
-    }
-    output[pointer] = num;
-}
-
-void fall (char array[],char obj[],short col){
-    loop:
-    char i = 0;
-    while (i < row)
-    {
-        if ((array[i] == '0' || array[i] == '#') && obj[col] > 0)
-        {
-            array[i - 1] = '#';
-            obj[col]--;
-            goto loop;
-        }
-        i++;
-    }
-}
+#include <bits/stdc++.h>
+using namespace std;
 
 int main(){
-    scanf("%hd %hd",&row,&col);
-    char stage[row][col];
-    char inputObj[59] = { 0 };
-    char Object[col] = { 0 };
-    for (char i = 0; i < row; i++)
-    {
-        scanf("%s",stage[i]);
-    }
-    scanf(" %[^\n]s", inputObj);
-    format(inputObj, Object);
-    for (char i = 0; i < col; i++)
-    {
+	int n,m;
+	string in;
+	int num;
+	cin >> n >> m;
+	string map[n];
+	int brick[m];
+	char col[n];
+	int i,j;
+	for(i = 0; i < n; i++){
+		cin >> in;
+		map[i] = in;
+	}
+	for(i = 0; i < m; i++){
+		cin >> brick[i];
+	}
 
-        char tempCol[row];
-        for (char j = 0; j < row; j++)
-        {
-            tempCol[j] = stage[j][i];
-        }
+	for(i = 0; i < m; i++){
+		for(j = 0; j < n; j++){//copy
+			col[j] = map[j][i];
+		//	cout << col[j];
+		}
+		//cout << endl;
 
-        fall(tempCol,Object,i);
+		int x,y;
+		int ptr;
+		//cout << "brick_fall -> ::" << brick[i] << endl;
+		for(x = 0; x < n; x++){
+		//	cout << "*******looping @ " << x << endl;
+			ptr = x;
+			if(x + 1 == n && col[x] == '.'){
+		//		cout << "====end of col" << endl;
+				for(y = 0;y < brick[i]; y++){
+					col[ptr - y] = '#';	
+		//			cout << "++placing . . .@" << ptr - y << endl;
+				}
+			}
+			if(col[x] == 'O'){
+		//		cout << "====found stone" << endl;
+				ptr = x - 1;
+				for(y = 0;y < brick[i]; y++){
+		//			cout << "++placing . . . @" << ptr - y << endl;
+					col[ptr - y] = '#';
+				}
+				break;
+			}
+		}
 
-        for (char z = 0; z < row; z++)
-        {
-            stage[z][i] = tempCol[z];
-        }
-    }
-    for (char i = 0; i < row; i++)
-    {
-        for (char j = 0; j < col; j++)
-        {
-            printf("%c",stage[i][j]);
-        }
-        printf("\n");
-    }
+		for(j = 0; j < n; j++){//paste
+			map[j][i] = col[j];
+		//	cout << map[j][i];
+		}
+		//cout << endl;
+	}
+	int s;
+	for(i = 0; i < n; i++){
+		s = map[i].size();
+		for(j = 0; j < s; j++){
+			cout << map[i][j];
+		}
+		cout << endl;
+	}	
+	return 0;
 }

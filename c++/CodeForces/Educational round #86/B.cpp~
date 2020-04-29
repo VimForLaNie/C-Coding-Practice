@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int t,size,x,i,n_z,n_o,p_z,p_o,len;
+	string n;
+	cin >> t;
+	while(t--){
+		cin >> n;
+		n_z = 0;
+		n_o = 0;
+		size = n.size();
+		//cout << size << endl;
+		for(i = 0; i < size; i++){
+		 	if(n[i] == '0'){
+				n_z++;
+			}
+			else{
+				n_o++;
+			}
+		}
+		if(n_o == 0){
+			while(n_z--){
+				cout << "0";
+			}
+			cout << endl;
+			continue;
+		}
+		if(n_z == 0){
+			while(n_o--){
+				cout << "1";
+			}
+			cout << endl;
+			continue;
+		}
+		if(n_o > n_z){
+			 len = n_o;
+			 p_o = len - n_z;
+			 p_z = len - p_o;
+		}
+		 else if (n_o == n_z){
+			cout << "0";
+			while(n_o--){
+				cout << "10";
+			}
+			cout << "1";
+			 cout << endl;
+			// --t;
+			continue;
+		}
+		 else{
+			 len = n_z;
+			 p_z = len - n_o;
+			 p_o = len - p_z;
+		 }
+		 //cout << "p0 " << p_z << endl;
+		 //cout << "p1 " << p_o << endl;
+		 for(x = 0; x < 2; x++){
+			 for(i = 0; i < p_o; i++){
+				 cout << "1";
+			 }
+			 for(i = 0; i < p_z; i++){
+				 cout << "0";
+			 }
+		 }
+		cout << endl;
+	}
+	return 0;
+}
