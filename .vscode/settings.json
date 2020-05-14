@@ -17,6 +17,8 @@
         "iostream": "cpp",
         "thread": "cpp",
         "string_view": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "cmath": "cpp",
+        "charconv": "cpp"
     }
 }

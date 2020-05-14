@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n,m,q,a,b,c,d,k,i,j,i_b,i_h;
+vector <int> bio;
+vector <int> sum_bio;
+vector <int> his;
+vector <int> sum_his;
+
+int temp;
+
+int main(){
+	cin >> n >> m >> q;
+	for(i = 0; i < n; i++){
+		cin >> temp;
+		bio.push_back(temp);
+		if(i > 1){
+			sum_bio.push_back(bio[i] + bio[i-1]);
+		}else{
+			sum_bio.push_back(temp);
+		}
+		cout << sum_bio[i] << " " << endl;
+	}
+	for(i = 0; i < m; i++){
+		cin >> temp;
+		his.push_back(temp);
+		if(i > 1){
+			sum_his.push_back(his[i] + his[i-1]);
+		}else{
+			sum_his.push_back(temp);
+		}
+		cout << sum_his[i] << " " << endl;
+	}
+	for(i = 0; i < q; i++){
+		cin >> a >> b >> c >> d >> k;
+		i_b = a - 1;
+		i_h = b - 1;
+		for(j = 0; j < k; j++){
+			if(sum_bio[i_b] < sum_his[i_h]){
+				i_b++;
+			}
+			else{
+				i_h++;
+			}
+		}
+		if(sum_bio[i_b] > sum_his[i_h]){
+			cout << sum_bio[i_b] << endl;
+		}
+		else{
+			cout << sum_his[i_h] << endl;
+		}
+	}
+}

@@ -35,14 +35,14 @@ void list_pushfront(Node* root,int data){
     root->data = data;
     root->next = ptr;
 }
-void list_rf(Node* root){
+void list_remove_front(Node* root){
     Node* ptr;
     ptr = root->next;
     root = ptr;
     cout << endl;
 }
 
-void list_removeback(Node* root){
+void list_remove_back(Node* root){
     Node* ptr;
     ptr = root;
     while(ptr->next->next != NULL){
