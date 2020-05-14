@@ -31,7 +31,20 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-
+    get(t);
+    while(t--){
+        get(n);
+        get(m);
+        if(n == 1){
+            print_l("0");
+        }
+        else if(n == 2){
+            print_l(m);
+        }
+        else{
+            print_l(2 * m);
+        }
+    }
     
     return 0;
 }
