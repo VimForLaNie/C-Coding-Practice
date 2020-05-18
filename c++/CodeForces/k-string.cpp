@@ -28,26 +28,33 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+int i,j,k,n,m,t,cnt;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    get(t);
-    
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
+    map<char,int> list;
+    get(k);
+    str s;
+    get(s);
+    int size = s.size();
+    rep(i,0,size - 1,1){ list[s[i]]++; }
+    for(auto &x : list){
+        if(x.se % k != 0){
+            print("-1");
+            return 0;
         }
-        print_l(arr[ans]);
+        else{
+            x.se = x.se / k;
+        }
+    }   
+    rep(j,1,k,1){
+        for(auto &x : list){
+            rep(i,0,x.se - 1,1){
+                print(x.fi);
+            }
+        }
     }
-    
     return 0;
 }

@@ -28,26 +28,39 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+int i,j,k,n,m,t,cnt;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    get(t);
-    
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
-        }
-        print_l(arr[ans]);
+    p_q <int> pq_h;
+    p_q <int> pq_l;
+    int high = 0, low = 0;
+
+    get(n); get(m);
+    int arr[m];
+    int temp_n = n;
+    int t;
+    rep(i,0,m-1,1){ get(arr[i]); pq_h.push(arr[i]); pq_l.push(-arr[i]); }
+    while(temp_n > 0){
+        t = pq_h.top();
+        high += t;
+        t--;
+        pq_h.pop();
+        if(t != 0){pq_h.push(t);}
+        temp_n--;
     }
-    
+    temp_n = n;
+    while(temp_n > 0){
+        t = -pq_l.top();
+        low += t;
+        t--;
+        pq_l.pop();
+        if(t != 0){pq_l.push(-t);}
+        temp_n--;
+    }
+    print_(high);
+    print_l(low);
     return 0;
 }

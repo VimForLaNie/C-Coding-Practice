@@ -29,25 +29,35 @@ using namespace std;
 #define newline() cout << endl;
 
 ll i,j,k,n,m,t,cnt;
-ll arr[500001];
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
     get(t);
-    
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
-        }
-        print_l(arr[ans]);
+    ll s_x,s_y,e_x,e_y;
+    get(s_x); get(s_y); get(e_x); get(e_y);
+    str s;
+    get(s);
+    int size = s.size();
+    bool r = 0,u = 0;
+    ll d_x,d_y;
+    d_x = e_x - s_x; d_y = e_y - s_y;
+    if(d_x > 0){ r = 1;}
+    else{r = 0;}
+    if(d_y > 0){ u = 1; }
+    else{u = 0;}
+    int ans;
+    rep(i,0,size - 1, 1){
+        if(d_x == 0 && d_y == 0) { ans = i; break;}
+
+        if(r && s[i] == 'E' && d_x != 0){ d_x--; }
+        if(!r && s[i] == 'W' && d_x != 0) { d_x++; }
+        if(u && s[i] == 'N' && d_y != 0) { d_y--; }
+        if(!u && s[i] == 'S' && d_y != 0) { d_y++; }
     }
-    
+    if(d_x != 0 || d_y != 0) { print("-1"); }
+    else{ print(ans); }
+
     return 0;
 }

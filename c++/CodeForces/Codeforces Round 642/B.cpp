@@ -47,17 +47,18 @@ int main(){
         int a_i;
         int b_i;
         int temp;
-        while(k){
-            a_i = n - i - 1;
-            b_i = i;
+        a_i = 0;
+        b_i = n - 1;
+        while(k && (b_i >= 0) && (a_i >= 0)){
+            
             if(a[a_i] < b[b_i]){
-                a[a_i] = temp;
+                temp = a[a_i];
                 a[a_i] = b[b_i];
                 b[b_i] = temp;
                 k--;
                 a_i++;
             }
-            b_i++;
+            b_i--;
         }
         int sum = 0;
         rep(i,0,n-1,1){

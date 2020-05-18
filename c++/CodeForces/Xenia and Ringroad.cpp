@@ -28,26 +28,23 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+ll i,j,k,n,m,t;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    get(t);
-    
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
-        }
-        print_l(arr[ans]);
+    get(n);
+    get(m);
+    vec <int> arr;
+    rep(i,0,m - 1,1){
+        get(t);
+        arr.push_back(t);
     }
-    
+    ll cnt = arr[0] - 1;
+    rep(i,0,m-2,1){
+        cnt += (arr[i] > arr[i + 1]) ? n - arr[i] + arr[i + 1] : arr[i + 1] - arr[i];
+    }
+    print_l(cnt);
     return 0;
 }

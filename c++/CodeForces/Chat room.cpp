@@ -28,26 +28,25 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+int i,j,k,n,m,t,cnt;
+bool h,e,l1,l2,o;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    get(t);
+    str s;
     
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
-        }
-        print_l(arr[ans]);
+    get(s);
+    int size = s.size();
+    rep(i,0,size - 1,1){
+        if(s[i] == 'h') { h = true;}
+        if(h && s[i] == 'e') { e = true;}
+        if(h && e && s[i] == 'l') {if(l1){l2 = true;} l1 = true; }
+        if(h && e && l1 && l2 && s[i] == 'o') {o = true;}
     }
+    if(h && e && l1 && l2 && o){ print("YES"); }
+    else{ print("NO"); }
     
     return 0;
 }

@@ -28,26 +28,25 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+lli i,j,k,n,m,t,cnt;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    get(t);
+    get(n);
+    lli arr[n];
+    rep(i,0,n-1,1){ get(arr[i]); }
+    sort(arr, arr + n);
+    lli dif = arr[n - 1] - arr[0];   
+    if(n == 2) { print_(dif); print_l("1"); return 0;}
+    lli left = 0; lli right = n - 1;
+    lli cnt_high = 0; lli cnt_low = 0;
+    lli high = arr[n - 1]; lli low = arr[0];
+    if(low == high) { print_(dif); print_l(n * (n - 1) / 2); return 0;}
+    rep(i,0,n-1,1){ if(arr[i] == high){cnt_high++;} if(arr[i] == low) {cnt_low++;} }
     
-    arr[0] = 0;
-    ll odd,ans;
-    while(t--){
-        get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
-        }
-        print_l(arr[ans]);
-    }
-    
+    print_(dif); print_l(cnt_low * cnt_high);
+    // main();
     return 0;
 }

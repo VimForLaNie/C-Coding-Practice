@@ -28,25 +28,48 @@ using namespace std;
 #define print(x) cout << x
 #define newline() cout << endl;
 
-ll i,j,k,n,m,t,cnt;
-ll arr[500001];
+int i,j,k,n,m,t,cnt = 0;
+
+void re(int arr[],int start, int end){
+    cnt++;
+    if(start < end){
+        if(end - start + 1 % 2 == 1){
+            arr[(start + end) / 2] = cnt;
+            re(arr,start,((start + end) / 2) - 1);
+            re(arr,(start + end) / 2 + 1,end);
+        }
+        else{
+            arr[(start + end - 1) / 2] = cnt;
+            re(arr,start,((start + end - 1) / 2) - 1);
+            re(arr,(start + end - 1) / 2 + 1,end);
+        }
+    }
+    else if(start == end){
+        if(end - start + 1 % 2 == 1){
+            arr[(start + end) / 2] = cnt;
+        }
+        else{
+            arr[(start + end - 1) / 2] = cnt;
+        }
+    }
+}
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
     get(t);
-    
-    arr[0] = 0;
-    ll odd,ans;
+    int high = 0;
+    int low = 0;
     while(t--){
         get(n);
-        rep(i,1,n / 2,1){
-            odd = (2 * i) + 1;
-            arr[i] = arr[i - 1] + (((odd * odd) - ((odd - 2) * (odd - 2))) * i);
-            ans = i;
+        int arr[n] = { 1 };
+        cnt = 0;
+        re(arr,0,n - 1);
+        rep(i,0,n-1,1){ 
+            cout << arr[i] << " ";
         }
-        print_l(arr[ans]);
+        newline();
     }
     
     return 0;
