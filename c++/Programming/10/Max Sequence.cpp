@@ -1,35 +1,29 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-void format(char input[],short output[]){
-    short num = 0;
-    short pointer = 0;
-    for (size_t i = 0; i < (sizeof(input)/sizeof(input[0])); i++)
-    {
-        if (input[i] >= '0' && input[i] <= '9')
-        {
-            if(input[i + 1] == ' '){
-                num += input[i];
-                output[pointer] = num;
-                i++;
-                pointer++;
-                num = 0;
-            }
-            else{
-                num += (input[i] * 10) + (input[i + 1]);
-                output[pointer] = num;
-                i += 2;
-                pointer++;
-                num = 0;
-            }
-        }
-        
-    }
-    
-}
+int n;
 
 int main(){
-    char rawInput[(3  * 100)] = {'/'};
-    fgets(rawInput,300 + 2,stdin);
-    short array[100] = { 0 };
-    format(rawInput,array);
+    scanf("%d",&n);
+    int arr[n];
+    for(int i = 0; i < n; i++){
+        scanf("%d",&arr[i]);
+    }
+    int sum = -INT_MAX;
+    int s,e;
+    int dy[n][n];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(j < i) { dy[i][j] = 0; continue;}
+            if(j == 0) {dy[i][j] = arr[j];}
+            else{dy[i][j] = dy[i][j - 1] + arr[j];}
+            if(dy[i][j] >= sum) { sum = dy[i][j]; s = i; e = j; }
+        }
+    }
+    if(sum <= 0) { printf("Empty Sequence\n"); return 0;}
+    for(int i = s; i <= e; i++){
+        printf("%d ",arr[i]);
+    }
+    printf("\n");
+    printf("%d\n",sum);
 }

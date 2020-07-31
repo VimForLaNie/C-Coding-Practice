@@ -1,23 +1,58 @@
-#include <stdio.h>
-int main(){
-    const short value[] = {100,90,50,40,10,9,5,4,1};
-    short count[9] = {0,0,0,0,0,0,0,0,0};
-    short i;
-    short input;
-    scanf("%hd",&input);
-    
-    for (i = 0; i < 9; i++)
-    {
-        if(input <= 0){
-            break;
+#include <bits/stdc++.h>
+using namespace std;
+
+int num;
+int arr[5];
+
+void cal(int n){
+        if(n / 100 > 0){
+            arr[4] += n / 100;
+            n -= (n / 100) * 100;
         }
-        count[i] = (input / value[i]);
-        input -= (value[i]*(input / value[i]));
+        if(n / 90 > 0){
+            arr[4]++;
+            arr[2]++;
+            n -= 90;
+        }
+        if(n / 50 > 0){
+            arr[3] += (n/50);
+            n -= (n / 50) * 50;
+        }
+        if(n / 40 > 0){
+            arr[3]++;
+            arr[2]++;
+            n -= 40;
+        }
+        if(n / 10 > 0){
+            arr[2] += n / 10;
+            n -= (n / 10) * 10;
+        }
+        if(n / 9 > 0){
+            arr[2]++;
+            arr[0]++;
+            n -= 9;
+        }
+        if(n / 5 > 0){
+            arr[1] += n / 5;
+            n -= (n / 5) * 5;
+        }
+        if(n / 4 > 0){
+            arr[1]++;
+            arr[0]++;
+            n -= 4;
+        }
+        if(n / 1 > 0){
+            arr[0] += n;
+            n -= n;
+        }
+}
+
+int main(){
+    scanf("%d",&num);
+    for(int i = 1; i <= num; i++){
+        cal(i);
     }
-    short result[] = {count[7] + count[6] + count[5],count[7] + count[6],count[5] + count[4] + count[3] + count[1],count[3] + count[2],count[1] + count[0]};
-    for (i = 0; i < 5; i++)
-    {
-        printf("%hd ",result[i]);
+    for(int i = 0; i < 5; i++){
+        printf("%d ",arr[i]);
     }
-    return 0;
 }

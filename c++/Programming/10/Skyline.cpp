@@ -1,65 +1,29 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-short nTower;
+int n,s,e,h,high;
+vector< pair<pair< int,int >,int> > queries;
 
-void draw(short start,short height, short end, short output[]){
-    for(short i = start - 1; i < end - 1; i++){
-        if(output[i] < height){
-            output[i] = height;
+int main(){
+    scanf("%d",&n);
+    for(int i = 0; i < n; i++){
+        scanf("%d %d %d",&s,&h,&e);
+        queries.push_back({{s,e},h});
+        high = max(high,e);
+    }
+    int arr[high + 1] = { -1 };
+    int seg_st,seg_ed;
+    for(int i = 0; i < n; i++){
+        seg_st = queries[i].first.first; seg_ed = queries[i].first.second;
+        for(int j = seg_st; j < seg_ed; j++){
+            arr[j] = max(queries[i].second,arr[j]);
         }
     }
-}
-
-short max(short array[]){
-    short a = 0;
-    for (char i = 0; i < nTower; i++)
-    {
-        if(array[i] > a){
-            a = array[i];
+    int curr_h = -1;
+    for(int i = 0; i <= high; i++){
+        if(arr[i] != curr_h){
+            printf("%d %d ",i,arr[i]);
+            curr_h = arr[i];
         }
     }
-    return a;
-}
-
-int main () {
-    scanf("%hd",&nTower);
-
-    short Tower[nTower][3] = { 0 };
-
-    for (short i = 0; i < nTower; i++)
-    {
-        scanf("%hd %hd %hd",&Tower[i][0],&Tower[i][1],&Tower[i][2]);
-    }
-
-    short temp[nTower];
-    for (char i = 0; i <= nTower; i++)
-    {
-        temp[i] = Tower[i][2];
-    }
-    short Max = max(temp);
-
-    short skyline[Max] = { 0 };
-    
-    for (short i = 0; i < nTower; i++)
-    {
-        draw(Tower[i][0],Tower[i][1],Tower[i][2],skyline);
-    }
-    
-    for (short i = 0; i < Max; i++)
-    {
-        printf("%hd ",skyline[i]);
-    }
-    printf("\n");
-    short curr;
-    short prev;
-    for (short i = 1; i <= Max; i++)
-    {
-        prev = skyline[i - 2];
-        curr = skyline[i - 1];
-        if(curr != prev){
-            printf("%hd ",i);
-            printf("%hd ",curr);
-        }
-    }
-    
 }
